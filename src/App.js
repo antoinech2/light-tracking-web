@@ -1,17 +1,27 @@
-import React from 'react'
-import Canvas from './Canvas'
+import { Stage, Layer, Text, Rect } from 'react-konva';
+import { useState } from 'react';
+import ColoredRect from './Canvas'
+import CoordsText from './Coords'
 
-function App() {
-  
-  const draw = (ctx, frameCount) => {
-    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
-    ctx.fillStyle = '#000000'
-    ctx.beginPath()
-    ctx.arc(100, 100, 200*Math.sin(frameCount*0.05)**2, 0, 2*Math.PI)
-    ctx.fill()
-  }
-  
-  return <Canvas draw={draw} />
-}
+const App = () => {
+
+  const [coords, setCoords] = useState([0,0]);
+
+  return (
+    <Stage width={window.innerWidth} height={window.innerHeight}>
+      <Layer>
+        <div onMouseMove={(e) => {
+          setCoords([e.evt.x, e.evt.y])}}>
+          <Text text="Try click on rect" />
+          <CoordsText 
+          text={coords[0].toString() + " , " + coords[1].toString()}
+          />
+          <ColoredRect/>
+          <Rect x={100} y={100} width={50} height={50} fill={'blue'} />
+        </div>
+      </Layer>
+    </Stage>
+  );
+};
 
 export default App
