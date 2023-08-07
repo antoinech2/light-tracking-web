@@ -7,7 +7,23 @@ export default class ApiService{
         .catch(error => this.handleError(error))
     }
 
+    static getRoom(){
+        return fetch(`${API_URL}/api/room`)
+        .then(response => response.json())
+        .catch(error => this.handleError(error))
+    }
+
+    static setTracking(coords){
+        return fetch(`${API_URL}/api/track`, {
+            method : 'POST',
+            body: JSON.stringify(coords),
+            headers: { 'Content-Type': 'application/json'}
+        })
+        .then(response => response.json())
+        .catch(error => this.handleError(error))
+    }
+
     static handleError(error) {
-        console.error(error);
+        console.error(`Error while communicating with API : ${error}`);
       }
 }

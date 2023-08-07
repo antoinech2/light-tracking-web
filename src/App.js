@@ -4,7 +4,7 @@ import Header from './components/Header';
 import { useState } from 'react';
 
 export default function App() {
-  const [coords, setCoords] = useState([0, 0])
+  const [coords, setCoords] = useState({x : 0, y : 0})
 
 
   return (
