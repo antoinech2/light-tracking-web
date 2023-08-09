@@ -1,6 +1,6 @@
 import {Box} from '@mui/material/';
 import Fixture from './Fixture';
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useState } from 'react';
 import ApiService from '../services/api';
 
 const ROOM = await ApiService.getRoom()
@@ -11,7 +11,6 @@ function getRoomCoords(coords){
   return {
     x : Math.round(coords.x / WIDTH * ROOM.width + ROOM.left),
     y : Math.round(coords.y / LENGTH * ROOM.length  + ROOM.top), 
-    z : coords.z || 0
   }
 }
 
@@ -19,34 +18,47 @@ function getCanvasCoords(coords){
   return {
     x : Math.round((coords.x - ROOM.left) / ROOM.width * WIDTH ),
     y : Math.round((coords.y - ROOM.top) / ROOM.length * LENGTH ), 
-    z : coords.z || 0
   }  
 }
 
-export default function Canvas({setCoords}) {
+export default function Canvas({fixtures, coords, setCoords, setHoverCoords, selectFixture}) {
   const refCanvas = useRef()
-  const [fixtures, setFixtures] = useState([])
-
-  useEffect(() => {
-    ApiService.getFixtures().then(liste => setFixtures(liste)).then(console.log(fixtures)) 
-  }, []) 
+  
+  const [isClicked, setClicked] = useState(false)
 
   function getInCanvasPosition(e){
     return {x : e.clientX - refCanvas.current.offsetLeft,
      y : e.clientY - refCanvas.current.offsetTop}
   }
 
+  function handleMouseChangeState(e){
+    if (e.button === 0){
+      if (e.type === "mousedown") {
+        setClicked(true)
+      } else {
+          setClicked(false)
+      }  
+    }
+  }
+
   function handleMouseMove(e){
-    setCoords(getRoomCoords(getInCanvasPosition(e)))
+    setHoverCoords(getRoomCoords(getInCanvasPosition(e)))
+    if (isClicked){
+      handleClick(e)
+    }
   }
 
   function handleClick(e){
-    ApiService.setTracking(getRoomCoords(getInCanvasPosition(e)))
+    let currentCoords = {...coords, ...getRoomCoords(getInCanvasPosition(e))}
+    setCoords(currentCoords)
+    ApiService.setTracking(currentCoords)
   }
 
   return (
     <Box ref = {refCanvas}
       onClick = {handleClick}
+      onMouseDown={ handleMouseChangeState }
+      onMouseUp={ handleMouseChangeState }
       onMouseMove = {handleMouseMove}
       sx={{
         position : "relative",
@@ -57,7 +69,7 @@ export default function Canvas({setCoords}) {
         overflow: "hidden"
       }}>
         {fixtures.map((fixture, index) => (
-          <Fixture key={index} fixture={fixture} displayX={getCanvasCoords({x : fixture.x}).x} displayY={getCanvasCoords({y : fixture.y}).y}/>
+          <Fixture select={selectFixture} id={index} key={index} fixture={fixture} displayX={getCanvasCoords({x : fixture.x}).x} displayY={getCanvasCoords({y : fixture.y}).y}/>
         ))}
     </Box>
   );
