@@ -26,7 +26,7 @@ export default function FixtureCard({ setFixtures, fixture, closeForm }) {
     async function handleSubmit(e){
         e.preventDefault()
         const formValues = e.target
-        const newFixture = {...fixture, x : formValues.x.value, y:formValues.y.value, z:formValues.z.value, pan:formValues.pan.value, tilt:formValues.tilt.value}
+        const newFixture = {...fixture, x : formValues.x.value, y:formValues.y.value, z:formValues.z.value, pan:formValues.pan.value, tilt:formValues.tilt.value, name:formValues.name.value, midiStart:formValues.midiStart.value, midiChannels:formValues.midiChannels.value}
         delete newFixture.isNew
         setFixtures(await ApiService.updateFixture(newFixture))
         closeForm()
@@ -51,6 +51,7 @@ export default function FixtureCard({ setFixtures, fixture, closeForm }) {
     }
 
     function UpdateFixtures(newFixture){
+        console.log("Fixtures updated !")
         setFixtures((fixtures) => {
             fixtures[fixture.id] = {...newFixture}
             delete fixtures[fixture.id].id
@@ -71,10 +72,22 @@ export default function FixtureCard({ setFixtures, fixture, closeForm }) {
     return (
         <form onSubmit={handleSubmit}>
             <Card variant="outlined" sx={{width : 400}}>
-                <CardHeader title={fixture.name} action={<RemoveFixture onConfirm={handleRemove} />}>
+                <CardHeader
+                title={
+                    <TextField
+                    required
+                    name="name"
+                    variant="outlined"
+                    label="Fixture name"
+                    defaultValue={fixture.name}
+                    sx={{ m: 1}}
+                    //onChange={(e) => {handleInputChange(e)}}
+                />
+                }
+                action={<RemoveFixture onConfirm={handleRemove} />}>
                 </CardHeader>
                 <CardContent>
-                    <Stack direction="row" spacing={2} mb={3}>
+                    <Stack direction="row" spacing={2} mb={2}>
                         <TextField
                             required
                             name="x"
@@ -130,7 +143,7 @@ export default function FixtureCard({ setFixtures, fixture, closeForm }) {
                             }}
                             />
                     </Stack>
-                    <Stack direction="row" spacing={2}>
+                    <Stack direction="row" spacing={2} mb={2}>
                         <TextField
                             name='pan'
                             variant="outlined"
@@ -165,6 +178,40 @@ export default function FixtureCard({ setFixtures, fixture, closeForm }) {
                                 min : -90,
                                 max : 90,
                                 step : 0.05,
+                            }}
+                        />
+                    </Stack>
+                    <Stack direction="row" spacing={2}>
+                        <TextField
+                            required
+                            name='midiStart'
+                            variant="outlined"
+                            type="number"
+                            label="First MIDI channel"
+                            defaultValue={fixture.midiStart}
+                            sx={{m: 1}}
+                            fullWidth={true}
+                            onChange={(e) => {handleInputChange(e)}}
+                            inputProps={{
+                                type : "number",
+                                min : 0,
+                                max : 127
+                            }}
+                        />
+                        <TextField
+                            required
+                            name='midiChannels'
+                            variant="outlined"
+                            type="number"
+                            label="Number of MIDI Channels"
+                            defaultValue={fixture.midiChannels}
+                            sx={{m: 1}}
+                            onChange={(e) => {handleInputChange(e)}}
+                            fullWidth={true}
+                            inputProps={{
+                                type : "number",
+                                min : 2,
+                                max : 4
                             }}
                         />
                     </Stack>

@@ -27,7 +27,7 @@ function getCanvasCoords(coords){
   }  
 }
 
-export default function Canvas({fixtures, coords, setCoords, setHoverCoords, selectFixture}) {
+export default function Canvas({fixtures, coords, setCoords, setHoverCoords, selectFixture, selectedFixture}) {
   const refCanvas = useRef()
   
   const [isClicked, setClicked] = useState(false)
@@ -57,7 +57,7 @@ export default function Canvas({fixtures, coords, setCoords, setHoverCoords, sel
   function handleClick(e){
     let currentCoords = {...coords, ...getRoomCoords(getInCanvasPosition(e))}
     setCoords(currentCoords)
-    ApiService.setTracking(currentCoords)
+    //ApiService.setTracking(currentCoords, selectedFixture)
   }
 
   return (

@@ -14,10 +14,11 @@ export default class ApiService{
         .catch(error => this.handleError(error))
     }
 
-    static setTracking(coords){
+    static setTracking(coords, modificationId, modificationFixture){
+        let request = modificationFixture ? {coords, modificationFixtureId : modificationId, modificationFixtureValue : modificationFixture} : {coords}
         return fetch(`${API_URL}/api/track`, {
             method : 'POST',
-            body: JSON.stringify(coords),
+            body: JSON.stringify(request),
             headers: { 'Content-Type': 'application/json'}
         })
         .then(response => response.json())

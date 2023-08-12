@@ -13,10 +13,13 @@ import FixtureCard from './components/FixtureCard';
 
 
 const defaultFixture = {
-  name : "Test",
+  name : "Fixture",
   x : 0,
   y : 0,
   z : 500,
+  pan : 0,
+  tilt : 0,
+  midiChannels : 4,
   isNew : true
 }
 
@@ -30,6 +33,15 @@ export default function App() {
     ApiService.getFixtures().then(liste => setFixtures(liste))
   }, []) 
 
+  useEffect(() => {
+    if (selectedFixture){
+      ApiService.setTracking(coords, selectedFixture.id, fixtures[selectedFixture.id])
+    }
+    else{
+      ApiService.setTracking(coords)
+    }
+  }, [coords, fixtures, selectedFixture])
+
   function addFixture(){
     setFixtures(() => {
       fixtures.push(defaultFixture)
@@ -41,9 +53,9 @@ export default function App() {
   return (
     <div>
       <Stack spacing={3}>
-        <Header add={addFixture} addAvailability={fixtures[fixtures.length-1]?.isNew} coords={coords} hoverCoords={hoverCoords}/>
+        <Header add={addFixture} addAvailability={fixtures[fixtures.length-1]?.isNew || (selectedFixture !== undefined)} coords={coords} hoverCoords={hoverCoords}/>
         <Stack direction="row" spacing={3}>
-          <Canvas selectFixture={setSelectedFixture} fixtures={fixtures} setHoverCoords={setHoverCoords} coords={coords} setCoords={setCoords}/>
+          <Canvas selectedFixture={selectedFixture} selectFixture={setSelectedFixture} fixtures={fixtures} setHoverCoords={setHoverCoords} coords={coords} setCoords={setCoords}/>
           <HeightSlider value={coords} setValue = {setCoords}/>
           {
             selectedFixture ? <FixtureCard setFixtures={setFixtures} closeForm={setSelectedFixture} fixture={selectedFixture}/>
