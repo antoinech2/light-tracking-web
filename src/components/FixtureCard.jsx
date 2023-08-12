@@ -1,18 +1,13 @@
+// React imports
 import { useCallback, useState } from 'react';
 
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardHeader from '@mui/material/CardHeader';
-import Stack from '@mui/material/Stack';
-import TextField from '@mui/material/TextField';
-import InputAdornment from '@mui/material/InputAdornment';
-import CheckIcon from '@mui/icons-material/Check';
-import CloseIcon from '@mui/icons-material/Close';
-import Button from '@mui/material/Button';
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+// MUI imports
+import {Card, CardActions, CardContent, CardHeader, 
+    Stack, TextField, InputAdornment, Button} from '@mui/material/';
+import {Check as CheckIcon, Close as CloseIcon, 
+        Visibility as VisibilityIcon, VisibilityOff as VisibilityOffIcon} from '@mui/icons-material/';
 
+//Project imports
 import ApiService from '../services/api';
 import RemoveFixture from './RemoveFixture';
 

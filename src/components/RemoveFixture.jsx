@@ -1,15 +1,14 @@
-import * as React from 'react';
-import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
-import DeleteIcon from '@mui/icons-material/Delete';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
+// React imports
+import {useState} from 'react';
+
+// MUI imports
+import {Button, IconButton, Dialog, DialogActions, 
+      DialogContent, DialogContentText, DialogTitle} from '@mui/material/';
+import {Delete as DeleteIcon} from '@mui/icons-material/';
+
 
 export default function RemoveFixture({onConfirm}) {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);

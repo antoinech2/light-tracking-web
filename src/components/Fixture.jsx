@@ -1,6 +1,6 @@
-import StarsIcon from '@mui/icons-material/Stars';
+//MUI imports
+import {Stars as StarsIcon, AddCircleOutline as AddCircleOutlineIcon} from '@mui/icons-material/';
 import Tooltip from '@mui/material/Tooltip';
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
 
 export default function Fixture({ id, select, fixture, displayX, displayY, size = 25 }) {

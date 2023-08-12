@@ -1,21 +1,16 @@
-import * as React from 'react';
+// MUI imports
 import { styled } from '@mui/material/styles';
-import Stack from '@mui/material/Box';
-import Item from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
-import Slider from '@mui/material/Slider';
-import MuiInput from '@mui/material/Input';
-import HeightIcon from '@mui/icons-material/Height';
-import ApiService from '../services/api';
-import InputAdornment from '@mui/material/InputAdornment';
+import {Stack, Grid as Item, Typography, Slider, Input as MuiInput, InputAdornment} from '@mui/material/';
+import {Height as HeightIcon} from '@mui/icons-material/';
 
+// Project imports
+import ApiService from '../services/api';
 
 const Input = styled(MuiInput)`
   width: 75px;
 `;
 
 export default function InputSlider({value, setValue}) {
-    //const [value, setValue] = React.useState(0);
 
     const handleSliderChange = (event, newValue) => {
         let newCoords = {...value, z : newValue}

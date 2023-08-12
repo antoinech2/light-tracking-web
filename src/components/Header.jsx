@@ -1,3 +1,4 @@
+// MUI imports
 import {Paper, Button} from '@mui/material/';
 
 export default function Header({coords, hoverCoords, add, addAvailability}){

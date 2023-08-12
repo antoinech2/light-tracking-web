@@ -1,10 +1,16 @@
+// React imports
+import { useState, useEffect } from 'react';
+
+// MUI imports
+import Stack from '@mui/material/Stack';
+
+// Project imports
+import ApiService from './services/api';
 import Canvas from './components/Canvas'
 import Header from './components/Header';
 import HeightSlider from './components/HeightSlider'
-import Stack from '@mui/material/Stack';
 import FixtureCard from './components/FixtureCard';
-import ApiService from './services/api';
-import { useState, useEffect } from 'react';
+
 
 const defaultFixture = {
   name : "Test",

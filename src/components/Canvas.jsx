@@ -1,7 +1,13 @@
-import {Box} from '@mui/material/';
-import Fixture from './Fixture';
+// React imports
 import { useRef, useState } from 'react';
+
+// MUI imports
+import {Box} from '@mui/material/';
+
+// Project imports
 import ApiService from '../services/api';
+import Fixture from './Fixture';
+
 
 const ROOM = await ApiService.getRoom()
 const LENGTH = window.innerHeight - 100
