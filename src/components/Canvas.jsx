@@ -8,7 +8,6 @@ import {Box} from '@mui/material/';
 import ApiService from '../services/api';
 import Fixture from './Fixture';
 
-
 const ROOM = await ApiService.getRoom()
 const LENGTH = window.innerHeight - 100
 const WIDTH = LENGTH / ROOM.length * ROOM.width

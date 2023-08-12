@@ -191,7 +191,7 @@ export default function FixtureCard({ setFixtures, fixture, closeForm }) {
                             defaultValue={fixture.midiStart}
                             sx={{m: 1}}
                             fullWidth={true}
-                            onChange={(e) => {handleInputChange(e)}}
+                            //onChange={(e) => {handleInputChange(e)}}
                             inputProps={{
                                 type : "number",
                                 min : 0,
@@ -206,7 +206,7 @@ export default function FixtureCard({ setFixtures, fixture, closeForm }) {
                             label="Number of MIDI Channels"
                             defaultValue={fixture.midiChannels}
                             sx={{m: 1}}
-                            onChange={(e) => {handleInputChange(e)}}
+                            //onChange={(e) => {handleInputChange(e)}}
                             fullWidth={true}
                             inputProps={{
                                 type : "number",

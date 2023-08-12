@@ -22,7 +22,7 @@ export default function InputSlider({value, setValue}) {
         let z = (event.target.value === '' ? '' : Number(event.target.value))
         let newCoords = {...value, z : z}
         setValue(newCoords);
-        ApiService.setTracking(newCoords)
+        //ApiService.setTracking(newCoords)
     };
 
     const handleBlur = () => {
